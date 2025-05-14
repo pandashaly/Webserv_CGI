@@ -6,7 +6,7 @@
 /*   By: ssottori <ssottori@student.42london.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 17:49:28 by ssottori          #+#    #+#             */
-/*   Updated: 2025/05/14 18:46:34 by ssottori         ###   ########.fr       */
+/*   Updated: 2025/05/14 19:09:38 by ssottori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,14 +50,14 @@ std::map<std::string, std::string> EnvBuilder::getEnvMap() const { return _env; 
 
 char** EnvBuilder::buildEnvArray() const // converting map into char array for execve()
 {
-	char** envp = new char*[_env.size()]; //?? +1 null terminator??
+	char** envp = new char*[_env.size() + 1]; //?? +1 null terminator??
 	size_t i = 0;
 
 //thos allows us to lpp thru every KEY=value pair in the _env map
 	for (std::map<std::string, std::string>::const_iterator it = _env.begin(); it != _env.end(); ++it)
 	{
 		std::string entry = it->first + "=" + it->second; //turn each pair into a string
-		envp[i] = new char[entry.length()];
+		envp[i] = new char[entry.length() + 1];
 		std::strcpy(envp[i], entry.c_str()); //c style string for execve
 		i++;
 	}
