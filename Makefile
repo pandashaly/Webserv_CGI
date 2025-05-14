@@ -1,20 +1,64 @@
-NAME = test_cgi
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: ssottori <ssottori@student.42london.com    +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2025/05/14 17:39:37 by ssottori          #+#    #+#              #
+#    Updated: 2025/05/14 19:03:13 by ssottori         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
 
-SRCS = cgi_handler.cpp tests_cgi.cpp
-INCS = -Iinc
+# ============== COLORS =================
+MAKEFLAGS += --silent
+RED=\033[1;31m
+GREEN=\033[1;32m
+NC=\033[0m
 
-CXX = c++
-CXXFLAGS = -Wall -Wextra -Werror
+# ============== COMPILER/FLAGS ============
+CC = c++
+CFLAGS = -Wall -Wextra -Werror -std=c++98 -pedantic
+RM = rm -rf
+
+# ============== FILES ====================
+NAME = run_cgi
+SRC_DIR = src
+INC_DIR = inc
+
+SRCS = tests_cgi.cpp \
+		$(SRC_DIR)/receiveRequest.cpp \
+		$(SRC_DIR)/prepEnv.cpp \
+		#$(SRC_DIR)/executeScript.cpp \
+		$(SRC_DIR)/returnOutput.cpp \
+		#$(SRC_DIR)/CgiHandler.cpp \
+
 
 OBJS = $(SRCS:.cpp=.o)
 
-$(NAME): $(OBJS)
-	$(CXX) $(CXXFLAGS) $(INCS) -o $(NAME) $(OBJS)
+# ============== RULES ====================
+all: $(NAME)
 
+$(NAME): $(OBJS)
+	$(CC) $(CFLAGS) $(OBJS) -I$(INC_DIR) -o $(NAME)
+	@echo "[$(GREEN)CGI$(NC)] Build complete!"
+
+%.o: %.cpp
+	@echo "[$(GREEN)CGI$(NC)] Compiling...$<"
+	$(CC) $(CFLAGS) -I$(INC_DIR) -c $< -o $@
+
+# ============== CLEAN ====================
 clean:
-	rm -f $(OBJS)
+	@echo "[$(RED)CGI$(NC)] Object files..."
+	@$(RM) $(OBJS)
 
 fclean: clean
-	rm -f $(NAME)
+	@echo "[$(RED)CGI$(NC)] Executable..."
+	@$(RM) $(NAME)
 
-re: fclean $(NAME)
+re: fclean all
+
+leaks:
+	valgrind --leak-check=full ./$(NAME)
+
+.PHONY: all clean fclean re

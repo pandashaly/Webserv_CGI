@@ -6,7 +6,7 @@
 /*   By: ssottori <ssottori@student.42london.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 14:40:39 by ssottori          #+#    #+#             */
-/*   Updated: 2025/05/14 17:18:48 by ssottori         ###   ########.fr       */
+/*   Updated: 2025/05/14 19:05:16 by ssottori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@ class RequestData
 		std::string _method;
 		std::string _path;
 		std::string _queryString;
-		std::string _body;
 		std::map<std::string, std::string> _headers; //??
+		std::string _body;
 
 	public:
 		RequestData();
