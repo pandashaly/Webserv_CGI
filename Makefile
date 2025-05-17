@@ -6,7 +6,7 @@
 #    By: ssottori <ssottori@student.42london.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/14 17:39:37 by ssottori          #+#    #+#              #
-#    Updated: 2025/05/17 19:27:42 by ssottori         ###   ########.fr        #
+#    Updated: 2025/05/17 20:48:43 by ssottori         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,11 +22,11 @@ CFLAGS = -Wall -Wextra -Werror -std=c++98 -pedantic
 RM = rm -rf
 
 # ============== FILES ====================
-NAME = run_cgi
+NAME = cgi
 SRC_DIR = src
 INC_DIR = inc
 
-SRCS = tests_cgi.cpp \
+SRCS = main.cpp \
 		$(SRC_DIR)/receiveRequest.cpp \
 		$(SRC_DIR)/prepEnv.cpp \
 		$(SRC_DIR)/executeScript.cpp \

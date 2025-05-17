@@ -6,7 +6,7 @@
 /*   By: ssottori <ssottori@student.42london.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/15 16:26:00 by ssottori          #+#    #+#             */
-/*   Updated: 2025/05/17 19:37:17 by ssottori         ###   ########.fr       */
+/*   Updated: 2025/05/17 21:15:08 by ssottori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,14 @@ bool ScriptExecutor::createOutPipe()
 
 char** ScriptExecutor::createArgv() const
 {
-	return NULL;
+	char **av = new char*[2];
+	std::string interpreter = getInterpreter();
+	av[0] = new char[interpreter.size() + 1];
+	std::strcpy(av[0], interpreter.c_str());
+	av[1] = new char[_scriptPath.size() + 1];
+	std::strcpy(av[1], _scriptPath.c_str());
+//-
+	return av;
 }
 
 void ScriptExecutor::runChild()
@@ -80,10 +87,12 @@ void ScriptExecutor::execveScript()
 	EnvBuilder envBuilder(_request);
 	char** envp = envBuilder.buildEnvArray();
 	char** av = createArgv();
-	execve(getInterpreter().c_str(), av, envp);
+	execve(av[0], av, envp);
+	std::cerr << "execve failed: " << strerror(errno) << std::endl;
 	envBuilder.freeEnvArray(envp);
 	//delete[] av;
 	///might need to delete?? if i dinamically allocate av
+	_exit(1);
 }
 
 std::string ScriptExecutor::errorResponse()
