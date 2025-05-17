@@ -26,13 +26,13 @@ A wrapper class `CgiHandler` coordinates the whole process.
 
 ### 🧪 Usage
 
-Currently testable as a standalone module with `test_cgi.cpp`. Not yet integrated into the server.
+Currently testable as a standalone module with `main.cpp`. Not yet integrated into the server.
 
 ### 🛠 Languages Supported
 
 - Python (.py)
 - Bash (.sh)
 
-> Project is WIP. Created to keep clean commit history and experiment independently before integration.
+> Project is WIP to experiment independently before integration.
 
 ---
