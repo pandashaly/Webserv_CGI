@@ -6,15 +6,7 @@ This is a modular CGI execution system designed to plug into the 42 `webserv` pr
 
 The CGI module handles execution of external scripts (e.g. Python, PHP, Bash) using the Common Gateway Interface (CGI) standard. It receives request data from the web server im creating with my 42 teammates, builds the environment, runs the script via `execve`, and returns the output.
 
----
-
-### TO DO:
-- [x] create map of env vars
-- [x] finish and test the executor
-- [ ] Stimulate POST request (calculator or greeting script)
-- [ ] write a .py script
-- [ ] add cgi route to Webserv config file
-- [ ] test in webserv with real GET and POST requests
+<img src="cgi-structure.png" alt="CGI Flowchart" width="500">
 
 ---
 
@@ -35,6 +27,18 @@ This modular approach makes it easier to understand and debug each responsibilit
 It also ensures better separation of concerns and will simplify future maintenance or extension (e.g. adding support for more languages or timeout handling for bigger servers).
 
 A wrapper class `CgiHandler` coordinates the whole process essentially maiking it ieaier to integrate into the resto of the group project. 
+
+---
+
+### TO DO:
+- [x] create map of env vars
+- [x] finish and test the executor
+- [ ] Stimulate POST request (calculator or greeting script)
+- [ ] write a .py script
+- [ ] add cgi route to Webserv config file
+- [ ] test in webserv with real GET and POST requests
+
+---
 
 ### 🧪 Usage
 
