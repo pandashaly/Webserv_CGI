@@ -6,7 +6,7 @@
 /*   By: ssottori <ssottori@student.42london.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/15 16:26:00 by ssottori          #+#    #+#             */
-/*   Updated: 2025/05/15 17:27:34 by ssottori         ###   ########.fr       */
+/*   Updated: 2025/05/17 19:37:17 by ssottori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,14 +38,53 @@ bool ScriptExecutor::createOutPipe()
 }
 
 char** ScriptExecutor::createArgv() const
-
-std::string ScriptExecutor::getInterpreter() const
+{
+	return NULL;
+}
 
 void ScriptExecutor::runChild()
+{
+	dup2(_pipe[1], STDOUT_FILENO); // redirect stdout to pipe
+	close(_pipe[0]);
+	close(_pipe[1]);
+
+	if (_request.getMethod() == "POST") {
+		bodytoStdin(); // handles input + exec
+	} else {
+		execveScript();
+	}
+
+	std::cerr << "Execve failed\n";
+	_exit(1);
+}
 
 std::string ScriptExecutor::runParent(pid_t pid)
+{
+	close(_pipe[1]);
+
+	char buff[4096];//??
+	size_t bytesRead;
+	while ((bytesRead = read(_pipe[0], buff, sizeof(buff) - 1)) > 0)
+	{
+		buff[bytesRead] = '\0';
+		_response += buff;
+	}
+
+	close(_pipe[0]);
+	waitpid(pid, NULL, 0);
+	return _response;
+}
 
 void ScriptExecutor::execveScript()
+{
+	EnvBuilder envBuilder(_request);
+	char** envp = envBuilder.buildEnvArray();
+	char** av = createArgv();
+	execve(getInterpreter().c_str(), av, envp);
+	envBuilder.freeEnvArray(envp);
+	//delete[] av;
+	///might need to delete?? if i dinamically allocate av
+}
 
 std::string ScriptExecutor::errorResponse()
 {
@@ -68,3 +107,6 @@ std::string ScriptExecutor::getInterpreter() const
 }
 
 void ScriptExecutor::bodytoStdin() // only for POST
+{
+	
+}

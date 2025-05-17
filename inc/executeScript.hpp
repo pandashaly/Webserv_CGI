@@ -6,7 +6,7 @@
 /*   By: ssottori <ssottori@student.42london.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/15 16:27:11 by ssottori          #+#    #+#             */
-/*   Updated: 2025/05/15 17:33:37 by ssottori         ###   ########.fr       */
+/*   Updated: 2025/05/17 19:36:06 by ssottori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,13 @@
 
 #include "prepEnv.hpp"
 #include "receiveRequest.hpp"
+#include "receiveRequest.hpp"
 
 class ScriptExecutor
 {
 	private:
 		std::string _scriptPath;
-		std::string _request;
+		RequestData _request;
 		std::string _response;
 		int _pipe[2];
 

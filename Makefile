@@ -6,7 +6,7 @@
 #    By: ssottori <ssottori@student.42london.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/14 17:39:37 by ssottori          #+#    #+#              #
-#    Updated: 2025/05/14 19:03:13 by ssottori         ###   ########.fr        #
+#    Updated: 2025/05/17 19:27:42 by ssottori         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,8 +29,8 @@ INC_DIR = inc
 SRCS = tests_cgi.cpp \
 		$(SRC_DIR)/receiveRequest.cpp \
 		$(SRC_DIR)/prepEnv.cpp \
-		#$(SRC_DIR)/executeScript.cpp \
-		$(SRC_DIR)/returnOutput.cpp \
+		$(SRC_DIR)/executeScript.cpp \
+		#$(SRC_DIR)/returnOutput.cpp \
 		#$(SRC_DIR)/CgiHandler.cpp \
 
 
