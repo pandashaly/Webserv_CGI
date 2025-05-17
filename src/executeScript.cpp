@@ -6,7 +6,7 @@
 /*   By: ssottori <ssottori@student.42london.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/15 16:26:00 by ssottori          #+#    #+#             */
-/*   Updated: 2025/05/17 21:15:08 by ssottori         ###   ########.fr       */
+/*   Updated: 2025/05/17 22:00:00 by ssottori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ bool ScriptExecutor::createOutPipe()
 
 char** ScriptExecutor::createArgv() const
 {
-	char **av = new char*[2];
+	char **av = new char*[3];
 	std::string interpreter = getInterpreter();
 	av[0] = new char[interpreter.size() + 1];
 	std::strcpy(av[0], interpreter.c_str());
@@ -69,7 +69,7 @@ std::string ScriptExecutor::runParent(pid_t pid)
 {
 	close(_pipe[1]);
 
-	char buff[4096];//??
+	char buff[4096];
 	size_t bytesRead;
 	while ((bytesRead = read(_pipe[0], buff, sizeof(buff) - 1)) > 0)
 	{
@@ -87,10 +87,10 @@ void ScriptExecutor::execveScript()
 	EnvBuilder envBuilder(_request);
 	char** envp = envBuilder.buildEnvArray();
 	char** av = createArgv();
+	std::cerr << "Running: " << getInterpreter() << " " << _scriptPath << std::endl;
 	execve(av[0], av, envp);
 	std::cerr << "execve failed: " << strerror(errno) << std::endl;
 	envBuilder.freeEnvArray(envp);
-	//delete[] av;
 	///might need to delete?? if i dinamically allocate av
 	_exit(1);
 }
