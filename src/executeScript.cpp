@@ -6,7 +6,7 @@
 /*   By: ssottori <ssottori@student.42london.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/15 16:26:00 by ssottori          #+#    #+#             */
-/*   Updated: 2025/05/17 22:00:00 by ssottori         ###   ########.fr       */
+/*   Updated: 2025/05/17 22:05:28 by ssottori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ std::string ScriptExecutor::runScript()
 	if (pid == 0)
 		runChild();
 	else
-		runParent(pid);
+		return runParent(pid);
 	
 	return errorResponse();
 }
@@ -87,7 +87,6 @@ void ScriptExecutor::execveScript()
 	EnvBuilder envBuilder(_request);
 	char** envp = envBuilder.buildEnvArray();
 	char** av = createArgv();
-	std::cerr << "Running: " << getInterpreter() << " " << _scriptPath << std::endl;
 	execve(av[0], av, envp);
 	std::cerr << "execve failed: " << strerror(errno) << std::endl;
 	envBuilder.freeEnvArray(envp);
