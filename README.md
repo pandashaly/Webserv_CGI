@@ -31,7 +31,7 @@ Currently testable as a standalone module with `test_cgi.cpp`. Not yet integrate
 ### 🛠 Languages Supported
 
 - Python (.py)
-- PHP (.php)
+- Bash (.sh)
 
 > Project is WIP. Created to keep clean commit history and experiment independently before integration.
 
