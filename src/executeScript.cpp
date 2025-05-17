@@ -6,7 +6,7 @@
 /*   By: ssottori <ssottori@student.42london.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/15 16:26:00 by ssottori          #+#    #+#             */
-/*   Updated: 2025/05/17 22:05:28 by ssottori         ###   ########.fr       */
+/*   Updated: 2025/05/18 00:11:59 by ssottori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,5 +116,39 @@ std::string ScriptExecutor::getInterpreter() const
 
 void ScriptExecutor::bodytoStdin() // only for POST
 {
-	
+	int pipefd[2];
+	if (pipe(pipefd) == -1)
+	{
+		std::cerr << "Failed to create pipe for stdin redirection.\n";
+		_exit(1);
+	}
+
+	pid_t pid = fork();
+	if (pid < 0)
+	{
+		std::cerr << "Fork failed in bodytoStdin.\n";
+		_exit(1);
+	}
+
+	if (pid == 0)
+	{
+		// Child: redirect stdin
+		close(pipefd[1]); // close write end
+		dup2(pipefd[0], STDIN_FILENO);
+		close(pipefd[0]);
+
+		execveScript(); // this runs execve and never returns
+		_exit(1); // fallback if execve fails
+	}
+	else
+	{
+		// Parent: write body to child
+		close(pipefd[0]); // close read end
+
+		std::string body = _request.getBody();
+		write(pipefd[1], body.c_str(), body.size());
+
+		close(pipefd[1]);
+		waitpid(pid, NULL, 0); // wait for child to finish
+	}
 }

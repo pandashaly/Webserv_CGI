@@ -6,7 +6,7 @@
 #    By: ssottori <ssottori@student.42london.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/14 17:39:37 by ssottori          #+#    #+#              #
-#    Updated: 2025/05/17 20:48:43 by ssottori         ###   ########.fr        #
+#    Updated: 2025/05/18 00:41:15 by ssottori         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,7 +30,7 @@ SRCS = main.cpp \
 		$(SRC_DIR)/receiveRequest.cpp \
 		$(SRC_DIR)/prepEnv.cpp \
 		$(SRC_DIR)/executeScript.cpp \
-		#$(SRC_DIR)/returnOutput.cpp \
+		$(SRC_DIR)/returnOutput.cpp \
 		#$(SRC_DIR)/CgiHandler.cpp \
 
 
