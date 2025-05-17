@@ -6,7 +6,7 @@
 /*   By: ssottori <ssottori@student.42london.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/17 20:57:59 by ssottori          #+#    #+#             */
-/*   Updated: 2025/05/17 21:56:17 by ssottori         ###   ########.fr       */
+/*   Updated: 2025/05/17 23:05:10 by ssottori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,8 @@ void testEnvMap(std::map<std::string, std::string> headers)
 
 void testingExecutor(std::map<std::string, std::string> headers)
 {
-	RequestData request("GET", "./cgi-bin/test.py", "", headers, "");
-	ScriptExecutor executor("./cgi-bin/test.py", request);
+	RequestData request("GET", "./cgi-bin/webserv.sh", "", headers, "");
+	ScriptExecutor executor("./cgi-bin/webserv.sh", request);
 
 	std::string output = executor.runScript();
 	std::cout << "[CGI OUTPUT] ===\n" << output << std::endl;
