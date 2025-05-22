@@ -6,7 +6,7 @@
 /*   By: ssottori <ssottori@student.42london.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/17 22:08:37 by ssottori          #+#    #+#             */
-/*   Updated: 2025/05/18 00:49:59 by ssottori         ###   ########.fr       */
+/*   Updated: 2025/05/21 16:50:46 by ssottori         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void ReturnOutput::parseHeaders()
 			std::string key = line.substr(0, colon);
 			std::string val = line.substr(colon + 1);
 
-			// Trim any space after colon
+			// ttrim any space after colon
 			while (!val.empty() && val[0] == ' ')
 				val.erase(0, 1);
 
